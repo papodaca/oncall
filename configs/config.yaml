@@ -12,10 +12,11 @@ db:
       scheme: mysql+pymysql
       user: root
       host: 127.0.0.1
+      port: 3306
       database: oncall
       charset: utf8
       echo: True
-    str: "%(scheme)s://%(user)s@%(host)s/%(database)s?charset=%(charset)s"
+    str: "%(scheme)s://%(user)s@%(host)s:%(port)d/%(database)s?charset=%(charset)s"
   kwargs:
     pool_recycle: 3600
 healthcheck_path: /tmp/status
@@ -43,7 +44,9 @@ debug: True
 # authenticate(self, username, password)
 auth:
   debug: True
-  module: 'oncall.auth.modules.debug'  # Auth module where Authenticator is implemented
+  module: 'oncall.auth.modules.chief'  # Auth module where Authenticator is implemented
+  chief_key: ""
+  endpoint: "auth.emfeng.com"
 
 # Example configuration for LDAP-based auth
 #   module: 'oncall.auth.modules.ldap_example'
